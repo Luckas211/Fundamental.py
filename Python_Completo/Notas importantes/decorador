@@ -1,0 +1,53 @@
+def meu_decorador(func):
+    """ Define um decorador que recebe uma função (func) como argumento """
+    
+    def wrapper(*args, **kwargs):
+        """
+        Define a função wrapper que vai "empacotar" a função original.
+        Ela aceita qualquer número de argumentos posicionais e nomeados.
+        """
+        print("Antes de chamar a função")
+        # Imprime uma mensagem antes de chamar a função original
+
+        resultado = func(*args, **kwargs) 
+        """ 
+        Chama a função original (func) com os argumentos recebidos
+        e armazena o resultado na variável `resultado`.
+        """
+        
+        print("Depois de chamar a função")
+        # Imprime uma mensagem depois que a função original foi chamada
+        
+        return resultado
+        """ 
+        Retorna o resultado da função original, mantendo seu comportamento
+        mesmo após a adição do código do decorador.
+        """
+    
+    return wrapper
+    """ 
+    Retorna a função `wrapper`, que substitui a função original com o código 
+    adicional do decorador.
+    """
+
+""" Aplica o decorador `meu_decorador` à função `saudacao`.  @meu_decorador"""
+@meu_decorador
+
+def saudacao(nome):
+    """ 
+    Define a função `saudacao`, que recebe um argumento `nome` 
+    e imprime uma saudação personalizada.
+    """
+    print(f"Olá, {nome}")
+    # Imprime "Olá, {nome}" usando o valor do argumento `nome`
+
+saudacao("Lucas")
+"""
+Chama a função `saudacao` com o argumento `"Lucas"`. Devido ao decorador, 
+o fluxo será:
+1. `wrapper` é chamado.
+2. "Antes de chamar a função" é impresso.
+3. `saudacao("Lucas")` é executada, imprimindo "Olá, Lucas".
+4. "Depois de chamar a função" é impresso.
+5. O resultado da função original é retornado.
+"""
